@@ -2,24 +2,36 @@ const addTaskBtn = document.getElementById('add-task-btn');
 const taskInput = document.getElementById('task-input');
 const taskList = document.getElementById('task-list');
 
-addTaskBtn.addEventListener('click', () => {
-    const taskText = taskInput.value.trim();
+const tasksData = JSON.parse(localStorage.getItem('tasks')) || [];
+
+function addTask(taskText) {
     if (taskText) {
+        let nextId = tasksData.length;
         taskList.innerHTML += `
-            <li>
+            <li data-id="${nextId}">
                 <input type="checkbox" class="task-checkbox">
                 <span>${taskText}</span>
                 <button class="delete-btn">X</button>
             </li>
         `;
+        tasksData.push({ id: nextId, text: taskText }); 
+        localStorage.setItem('tasks', JSON.stringify(tasksData));
         taskInput.value = '';
     }
+}
+
+addTaskBtn.addEventListener('click', () => {
+    const taskText = taskInput.value.trim();
+    addTask(taskText);
 });
 
 // Suppression des tâches
 taskList.addEventListener('click', (event) => {
     if (event.target.classList.contains('delete-btn')) {
+        const taskId = event.target.parentElement.dataset.id;
         event.target.parentElement.remove();
+        tasksData.splice(tasksData.findIndex(task => task.id === Number(taskId)), 1); 
+            localStorage.setItem('tasks', JSON.stringify(tasksData));
     }
 });
 
