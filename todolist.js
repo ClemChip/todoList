@@ -16,19 +16,30 @@ function addTask(taskText, nextId) {
             <li data-id="${nextId}">
                 <input type="checkbox" class="task-checkbox">
                 <span>${taskText}</span>
-                <button class="delete-btn">X</button>
+                <button class="delete-btn">✘</button>
             </li>
         `;
     }
 }
 
-addTaskBtn.addEventListener('click', () => {
+function saveTasks() {
     const taskText = taskInput.value.trim();
-    const nextId = tasksData.length;
+    const nextId = Math.max(...tasksData.map(task => task.id), -1) + 1;
     addTask(taskText, nextId);
-    tasksData.push({ id: nextId, text: taskText }); 
+    tasksData.push({ id: nextId, text: taskText });
     localStorage.setItem('tasks', JSON.stringify(tasksData));
     taskInput.value = '';
+}
+
+addTaskBtn.addEventListener('click', () => {
+    saveTasks()
+});
+
+taskInput.addEventListener('keydown', (event) => {
+    if (event.key === 'Enter') {
+        event.preventDefault();
+        saveTasks();
+    }
 });
 
 // Suppression des tâches
