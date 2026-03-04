@@ -1,6 +1,7 @@
-const addTaskBtn = document.getElementById('add-task-btn');
+const addTaskBtn = document.getElementById('add-btn');
 const taskInput = document.getElementById('task-input');
 const taskList = document.getElementById('task-list');
+const taskContainer = document.querySelector('.task-container');
 
 const tasksData = JSON.parse(localStorage.getItem('tasks')) || [];
 
@@ -8,6 +9,7 @@ const tasksData = JSON.parse(localStorage.getItem('tasks')) || [];
 // Chargement des tâches depuis le localStorage au démarrage de l'application
 function loadTasks() {
     tasksData.forEach(task => addTask(task.text, task.id));
+    addBtnClearTasks();
 }
 
 
@@ -26,6 +28,7 @@ function addTask(taskText, nextId) {
         deleteBtn.classList.add('delete-btn');
         deleteBtn.textContent = '✘';
         deleteBtn.setAttribute('aria-label', `Supprimer la tâche "${taskText}"`);
+        deleteBtn.setAttribute('title', `Supprimer la tâche "${taskText}"`);
         document.querySelector('.sr-only').textContent = `Tâche "${taskText}" ajoutée`;
 
         li.appendChild(input);
@@ -45,7 +48,42 @@ function saveTasks() {
     tasksData.push({ id: nextId, text: taskText });
     localStorage.setItem('tasks', JSON.stringify(tasksData));
     taskInput.value = '';
+    addBtnClearTasks();
 }
+
+
+// Tout supprimer
+function clearTasks() {
+    if (confirm("Êtes-vous sûr de vouloir supprimer toutes les tâches ?")) {
+        taskList.innerHTML = '';
+        tasksData.length = 0;
+        localStorage.removeItem('tasks');
+        addBtnClearTasks();
+    }
+}
+
+
+function addBtnClearTasks() {
+    let clearBtn = document.getElementById('clear-btn');
+    if (taskList.children.length > 3){    
+        if (!clearBtn) {
+            clearBtn = document.createElement('button');
+            clearBtn.id = 'clear-btn';
+            clearBtn.textContent = 'Tout supprimer';
+            clearBtn.setAttribute('aria-label', 'Supprimer toutes les tâches');
+            clearBtn.addEventListener('click', clearTasks);
+            document.querySelector('.sr-only').textContent = `Bouton "Tout supprimer" ajouté`;
+            taskContainer.appendChild(clearBtn);
+        }
+    } else {
+        if (clearBtn) {
+            clearBtn.remove();
+            document.querySelector('.sr-only').textContent = `Bouton "Tout supprimer" supprimé`;
+        }
+    }
+}
+
+
 
 // Ajout des tâches au clic sur le bouton ou à l'appui de la touche Entrée
 addTaskBtn.addEventListener('click', () => {
@@ -70,6 +108,7 @@ taskList.addEventListener('click', (event) => {
             tasksData.findIndex(task => task.id === Number(taskId)), 1); 
         localStorage.setItem('tasks', JSON.stringify(tasksData));
         document.querySelector('.sr-only').textContent = `Tâche "${taskText}" supprimée`;
+        addBtnClearTasks();
     }
 });
 

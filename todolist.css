@@ -14,6 +14,9 @@
 /* Force chacun à prendre la police de son parent*/
 * {
     font-family: inherit;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
 }
 
 body {
@@ -29,6 +32,7 @@ body {
 h1 {
     color: var(--text-primary);
     font-family: Gill Sans, sans-serif;
+    padding: 1.25rem;
 }
 
 .explanation-text {
@@ -36,12 +40,15 @@ h1 {
 }
 
 .task-container {
+    display: flex;
+    flex-direction: column;
     border: var(--pink) 2px solid;
     border-radius: var(--radius);
     background-color: var(--bg-secondary);
     padding: 1.25rem;
     margin: 1.25rem auto;
-    max-width: 37.5rem;
+    max-height: 18.75rem; 
+    flex-grow: 1;
 }
 
 ul {
@@ -49,6 +56,7 @@ ul {
     padding: 0;
     overflow-y: auto;
     max-height: 18.75rem;
+    flex-grow: 1;
 }
 
 /* Scrollbar */
@@ -62,14 +70,13 @@ ul {
 }
 
 ::-webkit-scrollbar-thumb {
-  background: var(--bg); 
+  background: var(--text-secondary); 
   border-radius: 10px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
   background: var(--pink); 
 }
-
 
 li {
     display: flex;
@@ -109,20 +116,39 @@ button {
     background-color: transparent;
     border: none;
     cursor: pointer;
+    border-radius: var(--radius);
+    font-weight: bold;
 }
 
 .delete-btn {
     color: var(--delete);
     font-size: 0.75rem;
     margin-left: auto;
+    background-color: var(--bg);
+    padding: 0.25rem 0.4rem;
 }
 
-#add-task-btn {
+.delete-btn:hover {
+    background-color: var(--delete);
+    color: var(--bg);
+}
+
+.input-zone {
+    display: flex;
+    margin-top: auto;
+}
+
+#add-btn {
     color: var(--text-secondary);
-    border: var(--pink) 1.5px solid;
-    border-radius: var(--radius);
+    border: 1.5px solid var(--pink);
     background-color: var(--bg);
     padding: 0.3125rem 0.625rem;
+}
+
+#add-btn:hover {
+    background-color: var(--text-secondary);
+    color: var(--pink);
+    border-color: var(--bg);
 }
 
 #task-input {
@@ -131,6 +157,20 @@ button {
     border: none;
     width: 12.5rem;
     margin-right: 0.625rem;
+}
+
+#clear-btn {
+    display: block;
+    color: var(--delete);
+    border: 1.5px solid var(--delete);
+    background-color: var(--bg);
+    padding: 0.3125rem 0.625rem;
+    margin-top: 0.625rem;
+}
+
+#clear-btn:hover {
+    background-color: var(--delete);
+    color: var(--bg);
 }
 
 :focus-visible {
@@ -150,4 +190,5 @@ footer {
     color: var(--text-secondary);
     text-align: center;
     margin-top: auto;
+    padding: 1rem;
 }
