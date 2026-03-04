@@ -4,9 +4,14 @@ const taskList = document.getElementById('task-list');
 
 const tasksData = JSON.parse(localStorage.getItem('tasks')) || [];
 
-function addTask(taskText) {
+
+function loadTasks() {
+    tasksData.forEach(task => addTask(task.text, task.id));
+}
+
+
+function addTask(taskText, nextId) {
     if (taskText) {
-        let nextId = tasksData.length;
         taskList.innerHTML += `
             <li data-id="${nextId}">
                 <input type="checkbox" class="task-checkbox">
@@ -14,15 +19,16 @@ function addTask(taskText) {
                 <button class="delete-btn">X</button>
             </li>
         `;
-        tasksData.push({ id: nextId, text: taskText }); 
-        localStorage.setItem('tasks', JSON.stringify(tasksData));
-        taskInput.value = '';
     }
 }
 
 addTaskBtn.addEventListener('click', () => {
     const taskText = taskInput.value.trim();
-    addTask(taskText);
+    const nextId = tasksData.length;
+    addTask(taskText, nextId);
+    tasksData.push({ id: nextId, text: taskText }); 
+    localStorage.setItem('tasks', JSON.stringify(tasksData));
+    taskInput.value = '';
 });
 
 // Suppression des tâches
@@ -30,8 +36,9 @@ taskList.addEventListener('click', (event) => {
     if (event.target.classList.contains('delete-btn')) {
         const taskId = event.target.parentElement.dataset.id;
         event.target.parentElement.remove();
-        tasksData.splice(tasksData.findIndex(task => task.id === Number(taskId)), 1); 
-            localStorage.setItem('tasks', JSON.stringify(tasksData));
+        tasksData.splice(
+            tasksData.findIndex(task => task.id === Number(taskId)), 1); 
+        localStorage.setItem('tasks', JSON.stringify(tasksData));
     }
 });
 
@@ -46,3 +53,6 @@ taskList.addEventListener('change', (event) => {
         }
     }
 });
+
+
+loadTasks();

@@ -1,0 +1,64 @@
+:root{
+    --bg: #003844;
+    --bg-secondary: #006C67;
+    --border: #C94277;
+    --text-primary: #BAD9B5;
+    --text-secondary: #EFF7CF;
+    --danger: #f26b6b;
+    --success: #5bcea0;
+    --radius: 16px;
+}
+
+body {
+    background-color: var(--bg);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    min-height: 100vh;;
+}
+
+h1 {
+    color: var(--text-primary);
+}
+
+.explanation-text {
+    color: var(--text-secondary);
+}
+
+.task-container {
+    border-color: var(--border);
+    border-width: 2px;
+    border-style: solid;
+    border-radius: var(--radius);
+    background-color: var(--bg-secondary);
+    padding: 20px;
+    margin: 20px auto;
+    max-width: 600px;
+}
+
+ul {
+    list-style: none;
+    padding: 0;
+}
+
+li {
+    display: flex;
+    align-items: center;
+    color: var(--text-secondary);
+    margin-bottom: 10px;
+    text-align: left;
+}
+
+.delete-btn {
+    background-color: transparent;
+    border: none;
+    color: var(--danger);
+    margin-left: auto;
+    cursor: pointer;
+}
+
+footer {
+    color: var(--text-secondary);
+    text-align: center;
+}

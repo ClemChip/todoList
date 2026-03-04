@@ -5,17 +5,20 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Ma Liste de Tâches</title>
+    <link rel="stylesheet" href="todolist.css">
 </head>
 
 <body>
     <h1>Ma Liste de Tâches</h1>
-    <p>Bienvenue sur votre gestionnaire de tâches.</p>
+    <p class="explanation-text">Bienvenue sur votre gestionnaire de tâches.</p>
     
-    <ul id="task-list">       
-    </ul>
+    <div class="task-container">
+        <ul id="task-list">       
+        </ul>
 
-    <input type="text" id="task-input" placeholder="Ajouter une nouvelle tâche">
-    <button id="add-task-btn">Ajouter</button>
+        <input type="text" id="task-input" placeholder="Ajouter une nouvelle tâche">
+        <button id="add-task-btn">Ajouter</button>
+    </div>
     
     <footer>
         <p>Par Prévence</p> 
