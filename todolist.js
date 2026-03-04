@@ -12,13 +12,22 @@ function loadTasks() {
 
 function addTask(taskText, nextId) {
     if (taskText) {
-        taskList.innerHTML += `
-            <li data-id="${nextId}">
-                <input type="checkbox" class="task-checkbox">
-                <span>${taskText}</span>
-                <button class="delete-btn">✘</button>
-            </li>
-        `;
+        const li = document.createElement('li');
+        li.dataset.id = nextId;
+        const input = document.createElement('input');
+        input.setAttribute('type', 'checkbox');
+        input.classList.add('task-checkbox');
+        const span = document.createElement('span');
+        span.textContent = taskText;
+        const deleteBtn = document.createElement('button');
+        deleteBtn.classList.add('delete-btn');
+        deleteBtn.textContent = '✘';
+
+        li.appendChild(input);
+        li.appendChild(span);
+        li.appendChild(deleteBtn);
+        
+        taskList.appendChild(li);
     }
 }
 
