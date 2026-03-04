@@ -5,11 +5,13 @@ const taskList = document.getElementById('task-list');
 const tasksData = JSON.parse(localStorage.getItem('tasks')) || [];
 
 
+// Chargement des tâches depuis le localStorage au démarrage de l'application
 function loadTasks() {
     tasksData.forEach(task => addTask(task.text, task.id));
 }
 
 
+// Ajout ou mise à jour d'une tâche
 function addTask(taskText, nextId) {
     if (taskText) {
         const li = document.createElement('li');
@@ -31,6 +33,8 @@ function addTask(taskText, nextId) {
     }
 }
 
+
+// Sauvegarde des tâches dans le localStorage
 function saveTasks() {
     const taskText = taskInput.value.trim();
     const nextId = Math.max(...tasksData.map(task => task.id), -1) + 1;
@@ -40,6 +44,7 @@ function saveTasks() {
     taskInput.value = '';
 }
 
+// Ajout des tâches au clic sur le bouton ou à l'appui de la touche Entrée
 addTaskBtn.addEventListener('click', () => {
     saveTasks()
 });
@@ -51,6 +56,7 @@ taskInput.addEventListener('keydown', (event) => {
     }
 });
 
+
 // Suppression des tâches
 taskList.addEventListener('click', (event) => {
     if (event.target.classList.contains('delete-btn')) {
@@ -61,6 +67,7 @@ taskList.addEventListener('click', (event) => {
         localStorage.setItem('tasks', JSON.stringify(tasksData));
     }
 });
+
 
 // Gestion des checkboxes
 taskList.addEventListener('change', (event) => {
