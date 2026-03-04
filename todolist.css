@@ -39,16 +39,16 @@ h1 {
     border: var(--pink) 2px solid;
     border-radius: var(--radius);
     background-color: var(--bg-secondary);
-    padding: 20px;
-    margin: 20px auto;
-    max-width: 600px;
+    padding: 1.25rem;
+    margin: 1.25rem auto;
+    max-width: 37.5rem;
 }
 
 ul {
     list-style: none;
     padding: 0;
     overflow-y: auto;
-    max-height: 300px;
+    max-height: 18.75rem;
 }
 
 /* Scrollbar */
@@ -75,7 +75,7 @@ li {
     display: flex;
     align-items: center;
     color: var(--text-secondary);
-    margin-bottom: 10px;
+    margin-bottom: 0.625rem;
     text-align: left;
 }
 
@@ -98,7 +98,7 @@ li {
 .task-checkbox:checked::after {
     content: "✔";
     color: var(--text-primary);
-    font-size: 12px;
+    font-size: 0.75rem;
     position: absolute;
     top: 50%;
     left: 50%;
@@ -113,7 +113,7 @@ button {
 
 .delete-btn {
     color: var(--delete);
-    font-size: 12px;
+    font-size: 0.75rem;
     margin-left: auto;
 }
 
@@ -122,15 +122,28 @@ button {
     border: var(--pink) 1.5px solid;
     border-radius: var(--radius);
     background-color: var(--bg);
-    padding: 5px 10px;
+    padding: 0.3125rem 0.625rem;
 }
 
 #task-input {
-    padding: 5px;
+    padding: 0.3125rem;
     border-radius: var(--radius);
     border: none;
-    width: 200px;
-    margin-right: 10px;
+    width: 12.5rem;
+    margin-right: 0.625rem;
+}
+
+:focus-visible {
+    outline: 2px solid var(--pink);
+    outline-offset: 2px;
+}
+
+.sr-only {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    clip: rect(0,0,0,0);
 }
 
 footer {

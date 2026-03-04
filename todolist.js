@@ -19,11 +19,14 @@ function addTask(taskText, nextId) {
         const input = document.createElement('input');
         input.setAttribute('type', 'checkbox');
         input.classList.add('task-checkbox');
+        input.setAttribute('aria-label', `${taskText}`);
         const span = document.createElement('span');
         span.textContent = taskText;
         const deleteBtn = document.createElement('button');
         deleteBtn.classList.add('delete-btn');
         deleteBtn.textContent = '✘';
+        deleteBtn.setAttribute('aria-label', `Supprimer la tâche "${taskText}"`);
+        document.querySelector('.sr-only').textContent = `Tâche "${taskText}" ajoutée`;
 
         li.appendChild(input);
         li.appendChild(span);
@@ -61,10 +64,12 @@ taskInput.addEventListener('keydown', (event) => {
 taskList.addEventListener('click', (event) => {
     if (event.target.classList.contains('delete-btn')) {
         const taskId = event.target.parentElement.dataset.id;
+        const taskText = event.target.previousElementSibling.textContent;
         event.target.parentElement.remove();
         tasksData.splice(
             tasksData.findIndex(task => task.id === Number(taskId)), 1); 
         localStorage.setItem('tasks', JSON.stringify(tasksData));
+        document.querySelector('.sr-only').textContent = `Tâche "${taskText}" supprimée`;
     }
 });
 
